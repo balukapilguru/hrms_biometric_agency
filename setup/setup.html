@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <script>
+async function loadConfig() {
+  const response = await fetch("/config");
+  const config = await response.json();
+
+  if (!config) return;
+
+  for (const key in config) {
+    if (document.querySelector(`[name="${key}"]`)) {
+      document.querySelector(`[name="${key}"]`).value = config[key] || "";
+    }
+  }
+}
+
+loadConfig();
+
+document.getElementById("setupForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+
+  const response = await fetch("/save-config", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  const result = await response.json();
+
+  if (result.success) {
+    alert("Configuration updated successfully. Please restart agent.");
+  } else {
+    alert("Failed to save configuration.");
+  }
+});
+</script>
+<head>
+  <title>Emplai HRMS Biometric Setup</title>
+  <style>
+    body { font-family: Arial; padding: 40px; }
+    input { width: 100%; padding: 8px; margin: 6px 0; }
+    button { padding: 10px 20px; background: #007bff; color: white; border: none; }
+  </style>
+</head>
+<body>
+
+<h2>Biometric Agent Setup</h2>
+
+<form id="setupForm">
+  <label>Agent Key</label>
+  <input type="text" name="agentKey" required />
+
+  <label>DB Host</label>
+  <input type="text" name="dbHost" required />
+
+  <label>DB Username</label>
+  <input type="text" name="dbUser" required />
+
+  <label>DB Password</label>
+  <input type="password" name="dbPassword" required />
+
+  <label>DB Name</label>
+  <input type="text" name="dbName" required />
+
+  <label>Cloud URL</label>
+  <input type="text" name="cloudUrl" required />
+
+  <button type="submit">Save Configuration</button>
+</form>
+
+<script>
+  document.getElementById("setupForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    const response = await fetch("/save-config", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert("Configuration saved! Restart agent.");
+    } else {
+      alert("Failed to save configuration.");
+    }
+  });
+</script>
+
+</body>
+</html>

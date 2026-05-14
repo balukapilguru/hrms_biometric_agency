@@ -1,0 +1,12 @@
+[Unit]
+Description=Emplai Biometric Agent
+After=network.target
+
+[Service]
+ExecStart=C:\Users\ADMIN\Desktop\DesktopApplication\hrms_biometric_agency\server.js
+Restart=always
+User=root
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

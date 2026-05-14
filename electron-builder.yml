@@ -1,0 +1,14 @@
+appId: com.emplai.biometric
+productName: Emplai Biometric Agent
+
+directories:
+  output: release
+
+win:
+  target:
+    - nsis
+
+linux:
+  target:
+    - deb
+    - AppImage

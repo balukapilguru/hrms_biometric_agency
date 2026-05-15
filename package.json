@@ -2,7 +2,6 @@
   "name": "emplai-biometric-agent",
   "version": "1.0.0",
   "description": "",
-  "main": "electron/main.js",
   "bin": "server.js",
   "pkg": {
     "targets": [
@@ -12,9 +11,6 @@
   },
   "scripts": {
     "dev": "nodemon server.js",
-    "electron": "electron .",
-    "build-win": "electron-builder --win",
-    "build-linux": "electron-builder --linux",
     "service-install": "node scripts/installService.js",
     "service-uninstall": "node scripts/uninstallService.js"
   },
@@ -62,8 +58,6 @@
     "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
-    "electron": "^42.0.1",
-    "electron-builder": "^26.8.1",
     "nodemon": "^3.1.14",
     "pkg": "^5.8.1"
   }

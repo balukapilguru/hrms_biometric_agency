@@ -1,11 +1,8 @@
 const { startSync } = require("./services/syncService");
 const { registerAgent, getRemoteConfig } = require("./services/cloudService");
-// const { loadConfig } = require("./services/configService");
 
 async function start() {
   try {
-    // const localConfig = await loadConfig();
-
     if (!localConfig.agentKey) {
       throw new Error("agentKey missing in config");
     }

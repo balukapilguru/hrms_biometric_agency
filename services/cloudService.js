@@ -1,6 +1,13 @@
 const axios = require("axios");
-const API_TIMEOUT = 30000; // 30 sec
-require("dotenv").config();
+const {
+  saveFailedLogs,
+  getQueuedLogs,
+  removeQueue,
+} = require("./queueService");
+const API_TIMEOUT = 30000;
+require("dotenv").config({
+  quiet: true,
+});
 
 async function registerAgent(req) {
   const url = `${process.env.CLOUD_URL}/client/api/deviceConfig/v1/agent/register`;
@@ -116,9 +123,14 @@ async function sendLogs(config, logs, lastSyncTime, retryCount = 0) {
     if (retryCount < 3) {
       console.log(`🔁 Retrying... (${retryCount + 1})`);
       await delay(2000);
-      return sendLogs(config, logs, retryCount + 1);
+      return sendLogs(config, logs, lastSyncTime, retryCount + 1);
     }
 
+    await saveFailedLogs({
+      config,
+      logs,
+      lastSyncTime,
+    });
     console.error("❌ Max retries reached. Failed to send logs.");
 
     throw error;

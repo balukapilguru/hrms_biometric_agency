@@ -58,6 +58,71 @@ app.post("/save-config", async (req, res) => {
   }
 });
 
+app.get("/config", async (req, res) => {
+  try {
+    const localConfig = await getLocalConfig();
+
+    if (!localConfig?.agentKey) {
+      return res.json({});
+    }
+
+    const remoteConfig = await getRemoteConfig(
+      localConfig.agentKey
+    );
+
+    return res.json({
+      success: true,
+      data: remoteConfig,
+    });
+  } catch (err) {
+    console.error(err);
+
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
+app.put("/update-config", async (req, res) => {
+  try {
+    const localConfig = await getLocalConfig();
+
+    if (!localConfig?.agentKey) {
+      return res.status(400).json({
+        success: false,
+        message: "Agent not configured",
+      });
+    }
+
+    const url =
+      `${process.env.CLOUD_URL}` +
+      `/client/api/deviceConfig/v1/update/${localConfig.agentKey}`;
+
+    const response = await axios.put(
+      url,
+      req.body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return res.json({
+      success: true,
+      data: response.data,
+    });
+  } catch (err) {
+    console.error(err);
+
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
 function startSetupServer() {
   return new Promise((resolve) => {
     app.listen(PORT, async () => {

@@ -1,7 +1,9 @@
 const path = require("path");
 const os = require("os");
 const fs = require("fs-extra");
-require("dotenv").config();
+require("dotenv").config({
+  quiet: true,
+});
 
 const isDev = !process.pkg;
 

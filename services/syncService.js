@@ -34,7 +34,7 @@ async function runSync() {
 
     console.log(`📦 ${logs.length} logs fetched`);
 
-    await sendLogs(config, logs, lastSyncTime);
+    await sendLogs(config, logs);
 
     console.log("✅ Sync completed");
   } catch (err) {

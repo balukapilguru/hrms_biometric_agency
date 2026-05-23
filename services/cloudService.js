@@ -91,9 +91,10 @@ async function updateLastSync(config, lastSyncTime) {
   }
 }
 
-async function sendLogs(config, logs, lastSyncTime, retryCount = 0) {
+async function sendLogs(config, logs, retryCount = 0) {
   const url = `${process.env.CLOUD_URL}/client/api/attendance/v1/biometric/sync`;
   console.log("📡 Sending logs...");
+
   try {
     const response = await axios.post(
       url,
@@ -113,6 +114,22 @@ async function sendLogs(config, logs, lastSyncTime, retryCount = 0) {
 
     // UPDATE CLOUD LAST SYNC
     if (response.status === 200) {
+      const now = new Date();
+
+      const formatted =
+        now.getFullYear() +
+        "-" +
+        String(now.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(now.getDate()).padStart(2, "0") +
+        " " +
+        String(now.getHours()).padStart(2, "0") +
+        ":" +
+        String(now.getMinutes()).padStart(2, "0") +
+        ":" +
+        String(now.getSeconds()).padStart(2, "0");
+
+      const lastSyncTime = formatted;
       await updateLastSync(config, lastSyncTime);
     }
 

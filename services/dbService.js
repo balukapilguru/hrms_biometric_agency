@@ -100,6 +100,8 @@ async function fetchLogs(config, lastSyncTime) {
       CHECKTYPE: row.Direction?.toLowerCase(),
     }));
 
+    console.table([...logs.values()].slice(0, 20));
+    
     const newLastSyncTime =
       allRows.length > 0 ? allRows[allRows.length - 1].LogDate : lastSyncDate;
 

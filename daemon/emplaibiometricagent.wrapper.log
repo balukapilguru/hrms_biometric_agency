@@ -1,2 +1,2 @@
-2026-05-15 15:20:55 - Starting C:\nvm4w\nodejs\node.exe  --harmony C:\Users\ADMIN\Desktop\DesktopApplication\hrms_biometric_agency\node_modules\node-windows\lib\wrapper.js --file C:\Users\ADMIN\Desktop\DesktopApplication\hrms_biometric_agency\server.js --scriptoptions= --log "EmplaiBiometricAgent wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
-2026-05-15 15:20:55 - Started 25928
+2026-05-23 17:43:47 - Starting C:\nvm4w\nodejs\node.exe  --harmony C:\Users\ADMIN\Desktop\DesktopApplication\hrms_biometric_agency\node_modules\node-windows\lib\wrapper.js --file C:\Users\ADMIN\Desktop\DesktopApplication\hrms_biometric_agency\server.js --scriptoptions= --log "EmplaiBiometricAgent wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2026-05-23 17:43:47 - Started 28360
